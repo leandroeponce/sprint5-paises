@@ -1,0 +1,67 @@
+<div class="bg-white p-6 rounded-lg shadow-md max-w-7xl w-full overflow-x-auto">
+    <div class="flex justify-between items-center mb-4">
+        <h1 class="text-2xl font-bold text-gray-700">Lista de Paises Hispanos</h1>
+    </div>
+    <table class="w-full border-collapse border border-gray-300 text-sm">
+        <thead>
+            <tr class="bg-gray-200">
+                <th class="border border-gray-300 px-4 py-2">Nombre Oficial</th>
+                <th class="border border-gray-300 px-4 py-2">Capital</th>
+                <th class="border border-gray-300 px-4 py-2">Fronteras</th>
+                <th class="border border-gray-300 px-4 py-2">Área km2</th>
+                <th class="border border-gray-300 px-4 py-2">Población</th>
+                <th class="border border-gray-300 px-4 py-2">Índice Gini</th>
+                <th class="border border-gray-300 px-4 py-2">Zonas Horarias</th>
+                <th class="border border-gray-300 px-4 py-2">Creador</th>
+                <th class="border border-gray-300 px-4 py-2">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% countries.forEach(country => { %>
+                <tr class="hover:bg-gray-100">
+                    <td class="border border-gray-300 px-4 py-2"><%= country.name?.nativeName?.spa?.official %></td>
+                    <td class="border border-gray-300 px-4 py-2"><%= country.capital %></td>
+                    <td class="border border-gray-300 px-4 py-2">
+                        <%
+                            let bordersArray = Array.isArray(country.borders)
+                                ? country.borders
+                                : String(country.borders).split(',');
+                        %>
+                        <% bordersArray.forEach(border => { %>
+                            <span class="inline-block bg-slate-200 text-blue-800 px-2 py-1 rounded mr-1 mb-2">
+                                <%= border.trim() %>
+                            </span>
+                        <% }) %>
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2"><%= country.area %></td>
+                    <td class="border border-gray-300 px-4 py-2"><%= country.population %></td>
+                    <td class="border border-gray-300 px-4 py-2">
+                        <% if (country.gini && typeof country.gini === 'object') {
+                            const years = Object.keys(country.gini).map(Number)
+                            const lastestYear = Math.max(...years)
+                            const lastestGini = country.gini[lastestYear]
+                       %>
+                         <%= lastestGini %>
+                       <% } else { %>
+                         N/A
+                       <% } %>
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2"><%= country.timezones %></td>
+                    <td class="border border-gray-300 px-4 py-2"><%= country.creador %></td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        <a href="/api/countries/edit/<%= country._id %>" class="bg-blue-500 text-white px-2 py-1 rounded">Editar</a>
+                        <form action="/api/countries/<%= country._id %>?_method=DELETE" method="POST" style="display:inline;" onsubmit="return confirmarEliminacion('<%= country.name?.spa?.official %>')">
+                            <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 mt-2">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function confirmarEliminacion(countryName) {
+        return confirm(`¿Estás seguro de que querés eliminar a "${countryName}"? Esta acción no se puede deshacer.`);
+    }
+</script>

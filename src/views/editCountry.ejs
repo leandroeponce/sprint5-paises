@@ -1,0 +1,68 @@
+<div class="flex justify-center items-center">
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h2 class="text-2xl font-bold text-center mb-4">Editar País</h2>
+
+        <% if(errores && errores.lenght > 0) { %>
+            <div class="bg-red-100 text-red-700 p-4 rounded mb-4">
+                <ul class="list-disc list-inside">
+                    <% errores.forEach(error => { %>
+                        <li><%= error.msg %></li>
+                    <% }) %>
+                </ul>
+            </div>
+        <% } %>
+        
+        <form action="/api/paises/edit/<%= country._id %>?_method=PUT" method="POST" class="space-y-4">
+            <!-- Campo oculto con el ID del pais para actualizar -->
+            <input type="hidden" name="id" value="<%= country._id %>">
+
+            <div>
+                <label for="countryName" class="block font-semibold">Nombre Oficial</label>
+                <input type="text" id="countryName" name="countryName" value="<%= country.name?.nativeName?.spa?.official %>" class="w-full border rounded">
+            </div>
+
+            <div>
+                <label for="countryCapital" class="block font-semibold">Capital</label>
+                <input type="text" id="countryCapital" name="countryCapital" value="<%= country.capital %>" class="w-full border rounded">
+            </div>
+
+            <div>
+                <label for="countryBorders" class="block font-semibold">Fronteras</label>
+                <input type="text" id="countryBorders" name="countryBorders" value="<%= country.borders %>" class="w-full border rounded">
+            </div>
+
+            <div>
+                <label for="countrArea" class="block font-semibold">Área km2</label>
+                <input type="number" id="countrArea" name="countrArea" value="<%= country.area %>" class="w-full border rounded">
+            </div>
+
+            <div>
+                <label for="countryPopulation" class="block font-semibold">Población</label>
+                <input type="number" id="countryPopulation" name="countryPopulation" value="<%= country.population %>" class="w-full border rounded">
+            </div>
+
+            <% 
+                let lastestGini = 'N/A'
+                if (country.gini && typeof country.gini === 'object') {
+                    const years = Object.keys(country.gini).map(Number)
+                    const lastestYear = Math.max(...years)
+                    const lastestGini = country.gini[lastestYear]
+            } %>
+
+            <div>
+                <label for="countryGini" class="block font-semibold">Índice Gini</label>
+                <input type="number" id="countryGini" name="countryGini" value="<%= lastestGini %>" class="w-full border rounded">
+            </div>
+
+            <div>
+                <label for="countryTimezones" class="block font-semibold">Zonas Horarias</label>
+                <input type="text" id="countryTimezones" name="countryTimezones" value="<%= country.timezones %>" class="w-full border rounded">
+            </div>
+            <div>
+                <button type="submit" class="bg-blue-600 text-white p-2 rounded hover:bg-blue-700 mt-4">
+                Guardar Cambios
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

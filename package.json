@@ -1,0 +1,28 @@
+{
+  "name": "sprint5-paises",
+  "version": "1.0.0",
+  "description": "Trabajo final del Sprint 5",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leandroeponce/sprint5-paises.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leandroeponce/sprint5-paises/issues"
+  },
+  "homepage": "https://github.com/leandroeponce/sprint5-paises#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "express-ejs": "^2.0.0",
+    "express-ejs-layouts": "^2.5.1",
+    "express-validator": "^7.2.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^8.14.1"
+  }
+}
