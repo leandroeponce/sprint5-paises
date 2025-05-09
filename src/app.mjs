@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 3000
 connectDB()
 
 // Configuración de middlewares
-app.use(methodOverride('method'))
+app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 

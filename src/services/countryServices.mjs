@@ -11,3 +11,11 @@ export async function getAllCountries() {
 export async function createCountry(data) {
     return await countryRepository.createCountry(data)
 }
+
+export async function updateCountry(id, data) {
+    return await countryRepository.updateCountry(id, data)
+}
+
+export async function deleteCountry(id) {
+    return await countryRepository.deleteById(id)
+}

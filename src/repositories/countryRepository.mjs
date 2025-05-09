@@ -20,6 +20,38 @@ class countryRepository extends IRepository {
             throw error
         }
     }
+
+    async updateCountry(id, data) {
+        const updatedCountry = await country.findOneAndUpdate(
+            { _id: id },
+            { $set: data },
+            { new: true }
+        )
+        console.log('Country updated: ', updatedCountry)
+        return updatedCountry;
+    }
+
+    async deleteById(id) {
+        console.log("lo que llega", id)
+        if (!id) {
+            throw new Error('El ID es requerido');
+        }
+
+        try {
+            const deleteCountry = await country.findByIdAndDelete(id);
+
+            if (!deleteCountry) {
+                throw new Error(`No se encontró un país con el ID: ${id}`);
+            }
+
+            console.log('País eliminado:', deleteCountry);
+            return deleteCountry;
+
+        } catch (error) {
+            console.error('Error al eliminar el país:', error.message);
+            throw error;
+        }
+    }
 }
 
 export default new countryRepository()

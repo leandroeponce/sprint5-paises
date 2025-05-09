@@ -2,7 +2,7 @@
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 class="text-2xl font-bold text-center mb-4">Editar País</h2>
 
-        <% if(errores && errores.lenght > 0) { %>
+        <% if(errores && errores.length > 0) { %>
             <div class="bg-red-100 text-red-700 p-4 rounded mb-4">
                 <ul class="list-disc list-inside">
                     <% errores.forEach(error => { %>
@@ -12,7 +12,7 @@
             </div>
         <% } %>
         
-        <form action="/api/paises/edit/<%= country._id %>?_method=PUT" method="POST" class="space-y-4">
+        <form action="/api/countries/edit/<%= country._id %>?_method=PUT" method="POST" class="space-y-4">
             <!-- Campo oculto con el ID del pais para actualizar -->
             <input type="hidden" name="id" value="<%= country._id %>">
 
@@ -32,8 +32,8 @@
             </div>
 
             <div>
-                <label for="countrArea" class="block font-semibold">Área km2</label>
-                <input type="number" id="countrArea" name="countrArea" value="<%= country.area %>" class="w-full border rounded">
+                <label for="countryArea" class="block font-semibold">Área km2</label>
+                <input type="number" id="countryArea" name="countryArea" value="<%= country.area %>" class="w-full border rounded">
             </div>
 
             <div>
@@ -46,7 +46,7 @@
                 if (country.gini && typeof country.gini === 'object') {
                     const years = Object.keys(country.gini).map(Number)
                     const lastestYear = Math.max(...years)
-                    const lastestGini = country.gini[lastestYear]
+                    lastestGini = country.gini[lastestYear]
             } %>
 
             <div>
