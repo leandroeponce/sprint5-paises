@@ -12,6 +12,7 @@ export const countrySanitizer = [
     }),
 
     body('countryBorders')
+        //se eliminan 1 o varios espeacios en blanco y se convierte a mayuscula
         .customSanitizer((value) => {
         const valueUppercase = value.replace(/\s+/g, '').toUpperCase()
         if(valueUppercase.includes(',')) {
@@ -50,7 +51,7 @@ export const countryValidations = [
     body('countryPopulation')
         .isInt({ min: 0 }).withMessage('Población debe ser un número entero positivo'),
 
-  // Middleware para manejar los errores de validación
+// Middleware para manejar los errores de validación
 (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -58,9 +59,4 @@ export const countryValidations = [
     }
     next();
 }
-
-  // para más adelante:
-  // body('gini')
-  //   .optional()
-  //   .isFloat({ min: 0, max: 100 }).withMessage('El índice Gini debe estar entre 0 y 100'),
 ]
