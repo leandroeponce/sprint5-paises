@@ -1,7 +1,7 @@
 import express from 'express';
 import { countryValidations, countrySanitizer } from '../validations/validateCountry.mjs'
 import { indexView, getCountryByIdController, getAllCountriesController, createCountryController, createCountryView, updateCountryController, deleteCountryController} from '../controllers/countryControllers.mjs'
-import { validationResult } from 'express-validator';
+
 
 const router = express.Router();
 
